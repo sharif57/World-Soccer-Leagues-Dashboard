@@ -185,10 +185,14 @@ const menuItems = [
 export function AppSidebar() {
   const pathname = usePathname(); // Get current URL path
 
+  if (pathname === "/auth/login") {
+    return null; // Don't render sidebar for login page
+  }
+
   return (
     <Sidebar className=" pt-10">
       <SidebarHeader className="p-4">
-        <div className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src="/Logo.svg"
             alt="Logo"
@@ -196,7 +200,7 @@ export function AppSidebar() {
             height={600}
             className="w-[90px] h-[60px] mx-auto flex items-center justify-center"
           />
-        </div>
+        </Link>
       </SidebarHeader>
 
       <SidebarContent>
@@ -229,10 +233,12 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <button className="flex items-center gap-3 px-3 py-2 w-full text-red-600 hover:bg-red-50">
-                <LogOut className="w-5 h-5" />
-                <span>Log out</span>
-              </button>
+              <Link href={"/auth/login"}>
+                <button className="flex items-center gap-3 px-3 py-2 w-full text-red-600 hover:bg-red-50">
+                  <LogOut className="w-5 h-5" />
+                  <span>Log out</span>
+                </button>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

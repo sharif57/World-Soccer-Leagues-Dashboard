@@ -1,8 +1,15 @@
+'use client';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Bell, Settings, Search } from "lucide-react"
+import { usePathname } from "next/navigation";
 
 export function DashboardHeader() {
+   const pathname = usePathname(); // Get current URL path
+  
+    if (pathname === "/auth/login") {
+      return null; // Don't render sidebar for login page
+    }
   return (
     <header className="border-b bg-white px-6 py-4">
       <div className="flex items-center justify-between">
