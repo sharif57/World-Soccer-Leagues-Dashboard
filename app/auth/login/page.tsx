@@ -1,41 +1,46 @@
-"use client"
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Lock, Mail } from "lucide-react"
-import Link from "next/link"
+"use client";
+import type React from "react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Lock, Mail } from "lucide-react";
+import Link from "next/link";
 
 export default function Component() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [rememberMe, setRememberMe] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
     // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    console.log("Login attempt:", { email, password, rememberMe })
-    setIsLoading(false)
-  }
+    console.log("Login attempt:", { email, password, rememberMe });
+    setIsLoading(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center ">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center pb-4">
-          <CardTitle className="text-2xl font-semibold text-gray-900">Log in</CardTitle>
+          <CardTitle className="text-2xl font-semibold text-gray-900">
+            Log in
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+              <Label
+                htmlFor="email"
+                className="text-sm font-medium text-gray-700"
+              >
                 Email
               </Label>
               <div className="relative">
@@ -53,7 +58,10 @@ export default function Component() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+              <Label
+                htmlFor="password"
+                className="text-sm font-medium text-gray-700"
+              >
                 Password
               </Label>
               <div className="relative">
@@ -75,13 +83,18 @@ export default function Component() {
                 <Checkbox
                   id="remember"
                   checked={rememberMe}
-                  onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                  onCheckedChange={(checked) =>
+                    setRememberMe(checked as boolean)
+                  }
                 />
                 <Label htmlFor="remember" className="text-sm text-gray-600">
                   Remember me
                 </Label>
               </div>
-              <Link href="/forgot-password" className="text-sm text-red-500 hover:text-red-600 transition-colors">
+              <Link
+                href="/forgot-password"
+                className="text-sm text-red-500 hover:text-red-600 transition-colors"
+              >
                 Forgot password?
               </Link>
             </div>
@@ -98,7 +111,10 @@ export default function Component() {
           <div className="text-center pt-4">
             <p className="text-sm text-gray-600">
               {"Don't have an account? "}
-              <Link href="/signup" className="text-slate-800 hover:text-slate-900 font-medium transition-colors">
+              <Link
+                href="/signup"
+                className="text-slate-800 hover:text-slate-900 font-medium transition-colors"
+              >
                 Sign up
               </Link>
             </p>
@@ -106,5 +122,5 @@ export default function Component() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
