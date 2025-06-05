@@ -7,15 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Camera,
-  Info,
-  TrendingUp,
-  Download,
-  Edit3,
-  Flag,
-  X,
-} from "lucide-react";
+import { Camera, Info, X } from "lucide-react";
 import Image from "next/image";
 
 interface TeamData {
@@ -382,7 +374,7 @@ export default function Component() {
           </div>
 
           {/* Match Summary */}
-          <Card className="bg-gray-50 p-6 mb-6">
+          <Card className="bg-[#EFF6FF] p-6 mb-6">
             <div className="grid grid-cols-3 gap-8 text-center">
               <div>
                 <div className="text-xs text-gray-500 mb-1">Phase</div>
@@ -403,7 +395,7 @@ export default function Component() {
 
           {/* Save Button */}
           <div className="flex justify-center">
-            <Button className="bg-slate-700 hover:bg-slate-800 text-white px-12 py-2 rounded-full">
+            <Button className="bg-[#203463] hover:bg-slate-800 text-white px-12 py-2 rounded-full">
               Save now
             </Button>
           </div>
