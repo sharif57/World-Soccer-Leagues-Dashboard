@@ -293,7 +293,7 @@ export default function Component() {
           </div>
 
           {/* Teams Section */}
-          <div className="grid grid-cols-2 gap-8 mb-8">
+          <div className="flex justify-between items-center gap- mb-8">
             {/* Team 1 */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
@@ -310,7 +310,7 @@ export default function Component() {
 
               <div className="space-y-3 mt-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 w-20">Xyz</span>
+                  {/* <span className="text-sm text-gray-600 w-20">Xyz</span> */}
                   <span className="text-xs text-gray-400 mx-4">Team Name</span>
                   <Input
                     value={team1Data.teamName}
@@ -322,7 +322,7 @@ export default function Component() {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 w-20">Xyz</span>
+                  {/* <span className="text-sm text-gray-600 w-20">Xyz</span> */}
                   <span className="text-xs text-gray-400 mx-4">
                     League Name
                   </span>
@@ -336,8 +336,8 @@ export default function Component() {
                 </div>
               </div>
             </div>
+            <h1 className="text-2xl font-normal text-center">Flags</h1>
 
-            {/* Team 2 */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Team 2
@@ -353,13 +353,7 @@ export default function Component() {
 
               <div className="space-y-3 mt-4">
                 <div className="flex items-center justify-between">
-                  <Flag className="w-4 h-4 text-gray-400" />
-                  <span className="text-xs text-gray-400 mx-4">Flag</span>
-                  <div className="flex-1"></div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 w-20">Xyz</span>
+                  {/* <span className="text-sm text-gray-600 w-20">Xyz</span> */}
                   <span className="text-xs text-gray-400 mx-4">Team Name</span>
                   <Input
                     value={team2Data.teamName}
@@ -371,7 +365,7 @@ export default function Component() {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 w-20">Xyz</span>
+                  {/* <span className="text-sm text-gray-600 w-20">Xyz</span> */}
                   <span className="text-xs text-gray-400 mx-4">
                     League Name
                   </span>
