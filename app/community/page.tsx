@@ -1,148 +1,308 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { MessageSquare, ThumbsUp, Users, TrendingUp } from "lucide-react"
+"use client";
 
-export default function CommunityPage() {
-  const posts = [
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Trash2,
+  MoreHorizontal,
+} from "lucide-react";
+import Image from "next/image";
+
+interface CommunityPost {
+  id: number;
+  avatar: string;
+  userName: string;
+  title: string;
+  date: string;
+  time: string;
+  reaction: number;
+  comment: number;
+  vote: string | number;
+  selected: boolean;
+}
+
+export default function Component() {
+  const [posts, setPosts] = useState<CommunityPost[]>([
     {
       id: 1,
-      title: "What's your favorite team strategy?",
-      author: "Alex Johnson",
-      avatar: "/placeholder.svg?height=40&width=40",
-      date: "2 hours ago",
-      likes: 24,
-      comments: 8,
-      type: "Discussion",
+      avatar: "/users.png",
+      userName: "Xyz",
+      title: "FC XYZ Wins Dramatic Playoff Spot!",
+      date: "01 Jan 2025",
+      time: "6.00 Pm",
+      reaction: 150,
+      comment: 100,
+      vote: "N/A",
+      selected: false,
     },
     {
       id: 2,
-      title: "Poll: Best player of the season",
-      author: "Sarah Wilson",
-      avatar: "/placeholder.svg?height=40&width=40",
-      date: "5 hours ago",
-      likes: 45,
-      comments: 12,
-      type: "Poll",
+      avatar: "/users.png",
+      userName: "Xyz",
+      title: "FC XYZ Wins Dramatic Playoff Spot!",
+      date: "01 Jan 2025",
+      time: "6.00 Pm",
+      reaction: 150,
+      comment: 100,
+      vote: "N/A",
+      selected: false,
     },
     {
       id: 3,
-      title: "Tournament predictions thread",
-      author: "Mike Davis",
-      avatar: "/placeholder.svg?height=40&width=40",
-      date: "1 day ago",
-      likes: 67,
-      comments: 23,
-      type: "Discussion",
+      avatar: "/users.png",
+      userName: "Xyz",
+      title: "FC XYZ Wins Dramatic Playoff Spot!",
+      date: "01 Jan 2025",
+      time: "6.00 Pm",
+      reaction: 150,
+      comment: 100,
+      vote: "Post",
+      selected: false,
     },
-  ]
+    {
+      id: 4,
+      avatar: "/users.png",
+      userName: "Xyz",
+      title: "FC XYZ Wins Dramatic Playoff Spot!",
+      date: "01 Jan 2025",
+      time: "6.00 Pm",
+      reaction: 150,
+      comment: 100,
+      vote: "N/A",
+      selected: false,
+    },
+    {
+      id: 5,
+      avatar: "/users.png",
+      userName: "Xyz",
+      title: "FC XYZ Wins Dramatic Playoff Spot!",
+      date: "01 Jan 2025",
+      time: "6.00 Pm",
+      reaction: 150,
+      comment: 100,
+      vote: "Post",
+      selected: false,
+    },
+    {
+      id: 6,
+      avatar: "/users.png",
+      userName: "Xyz",
+      title: "FC XYZ Wins Dramatic Playoff Spot!",
+      date: "01 Jan 2025",
+      time: "6.00 Pm",
+      reaction: 150,
+      comment: 100,
+      vote: 150,
+      selected: false,
+    },
+  ]);
+
+  const [currentPage, setCurrentPage] = useState(12);
+  const totalPages = 12;
+
+  const handleSelectPost = (id: number) => {
+    setPosts(
+      posts.map((post) =>
+        post.id === id ? { ...post, selected: !post.selected } : post
+      )
+    );
+  };
+
+  const handleSelectAll = () => {
+    const allSelected = posts.every((post) => post.selected);
+    setPosts(posts.map((post) => ({ ...post, selected: !allSelected })));
+  };
+
+  const handleDeletePost = (id: number) => {
+    setPosts(posts.filter((post) => post.id !== id));
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const renderPaginationButtons = () => {
+    const buttons = [];
+
+    // Back button
+    buttons.push(
+      <Button
+        key="back"
+        variant="outline"
+        onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+        disabled={currentPage === 1}
+        className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <ChevronLeft className="w-4 h-4 mr-1" />
+        Back
+      </Button>
+    );
+
+    // Page 1
+    buttons.push(
+      <Button
+        key={1}
+        variant={currentPage === 1 ? "default" : "outline"}
+        onClick={() => handlePageChange(1)}
+        className={`w-10 h-10 text-sm font-medium rounded-md ${
+          currentPage === 1
+            ? "bg-slate-700 text-white hover:bg-slate-800"
+            : "text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
+        }`}
+      >
+        1
+      </Button>
+    );
+
+    // Ellipsis
+    if (currentPage > 3) {
+      buttons.push(
+        <Button
+          key="ellipsis"
+          variant="outline"
+          disabled
+          className="w-10 h-10 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-default"
+        >
+          <MoreHorizontal className="w-4 h-4" />
+        </Button>
+      );
+    }
+
+    // Current page (if not 1)
+    if (currentPage !== 1) {
+      buttons.push(
+        <Button
+          key={currentPage}
+          variant="default"
+          className="w-10 h-10 text-sm font-medium bg-slate-700 text-white hover:bg-slate-800 rounded-md"
+        >
+          {currentPage}
+        </Button>
+      );
+    }
+
+    // Next button
+    buttons.push(
+      <Button
+        key="next"
+        variant="outline"
+        onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+        disabled={currentPage === totalPages}
+        className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Next
+        <ChevronRight className="w-4 h-4 ml-1" />
+      </Button>
+    );
+
+    return buttons;
+  };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Community Posts & Polls</h1>
-        <Button>Create Post</Button>
-      </div>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-2xl font-semibold text-gray-900">
+            Community Post & Polls
+          </h1>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <Users className="w-6 h-6 text-blue-600" />
+        {/* Table */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          {/* Table Header */}
+          <div className="bg-blue-50 border-b border-gray-200">
+            <div className="grid grid-cols-12 gap-4 px-6 py-4 text-sm font-medium text-gray-700">
+              <div className="col-span-1 flex items-center">
+                <Checkbox
+                  checked={
+                    posts.length > 0 && posts.every((post) => post.selected)
+                  }
+                  onCheckedChange={handleSelectAll}
+                  className="mr-2"
+                />
+                Avatar
               </div>
-              <div>
-                <p className="text-sm text-gray-600">Total Posts</p>
-                <p className="text-2xl font-bold">1,234</p>
-              </div>
+              <div className="col-span-1">User Name</div>
+              <div className="col-span-3">Title</div>
+              <div className="col-span-1">Date</div>
+              <div className="col-span-1">Time</div>
+              <div className="col-span-1">Reaction</div>
+              <div className="col-span-1">Comment</div>
+              <div className="col-span-1">Vote</div>
+              <div className="col-span-2">Action</div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
 
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-green-100 rounded-lg">
-                <MessageSquare className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">Active Discussions</p>
-                <p className="text-2xl font-bold">89</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-purple-100 rounded-lg">
-                <ThumbsUp className="w-6 h-6 text-purple-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">Total Likes</p>
-                <p className="text-2xl font-bold">5,678</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-orange-100 rounded-lg">
-                <TrendingUp className="w-6 h-6 text-orange-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">Trending Posts</p>
-                <p className="text-2xl font-bold">12</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Posts</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {posts.map((post) => (
-              <div key={post.id} className="flex items-start gap-4 p-4 border rounded-lg">
-                <Avatar>
-                  <AvatarImage src={post.avatar || "/placeholder.svg"} />
-                  <AvatarFallback>
-                    {post.author
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-medium">{post.title}</h3>
-                    <Badge variant="outline">{post.type}</Badge>
+          {/* Table Body */}
+          <div className="divide-y divide-gray-200">
+            {posts.map((post, index) => (
+              <div
+                key={post.id}
+                className={`grid grid-cols-12 gap-4 px-6 py-4 text-sm ${
+                  index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                } hover:bg-gray-100 transition-colors`}
+              >
+                <div className="col-span-1 flex items-center">
+                  <Checkbox
+                    checked={post.selected}
+                    onCheckedChange={() => handleSelectPost(post.id)}
+                    className="mr-3"
+                  />
+                  <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                    <Image
+                      src={post.avatar || "/placeholder.svg"}
+                      alt={`${post.userName} avatar`}
+                      width={40}
+                      height={40}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <div className="flex items-center gap-4 text-sm text-gray-600">
-                    <span>By {post.author}</span>
-                    <span>{post.date}</span>
-                    <div className="flex items-center gap-1">
-                      <ThumbsUp className="w-4 h-4" />
-                      <span>{post.likes}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <MessageSquare className="w-4 h-4" />
-                      <span>{post.comments}</span>
-                    </div>
-                  </div>
+                </div>
+                <div className="col-span-1 flex items-center text-gray-900 font-medium">
+                  {post.userName}
+                </div>
+                <div className="col-span-3 flex items-center text-gray-900">
+                  {post.title}
+                </div>
+                <div className="col-span-1 flex items-center text-gray-700">
+                  {post.date}
+                </div>
+                <div className="col-span-1 flex items-center text-gray-700">
+                  {post.time}
+                </div>
+                <div className="col-span-1 flex items-center text-gray-900 font-medium">
+                  {post.reaction}
+                </div>
+                <div className="col-span-1 flex items-center text-gray-900 font-medium">
+                  {post.comment}
+                </div>
+                <div className="col-span-1 flex items-center text-gray-900 font-medium">
+                  {post.vote}
+                </div>
+                <div className="col-span-2 flex items-center">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleDeletePost(post.id)}
+                    className="text-gray-400 hover:text-red-600 hover:bg-red-50 p-2"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
             ))}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+
+        {/* Pagination */}
+        <div className="flex items-center justify-center gap-2 mt-8">
+          {renderPaginationButtons()}
+        </div>
+      </div>
     </div>
-  )
+  );
 }

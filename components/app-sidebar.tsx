@@ -111,7 +111,7 @@
 //     </Sidebar>
 //   )
 // }
-'use client';
+"use client";
 import {
   Sidebar,
   SidebarContent,
@@ -122,7 +122,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
   Users,
@@ -133,10 +133,10 @@ import {
   ShoppingBag,
   Settings,
   LogOut,
-} from "lucide-react"
+} from "lucide-react";
 import Image from "next/image";
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const menuItems = [
   {
@@ -180,10 +180,10 @@ const menuItems = [
     url: "/settings",
     icon: Settings,
   },
-]
+];
 
 export function AppSidebar() {
-  const pathname = usePathname() // Get current URL path
+  const pathname = usePathname(); // Get current URL path
 
   return (
     <Sidebar className=" pt-10">
@@ -209,8 +209,10 @@ export function AppSidebar() {
                     <Link
                       href={item.url}
                       className={`flex items-center gap-3 px-6 py-5  text-[20px] rounded-full ${
-                        pathname === item.url ? "bg-[#203463] text-[20px] text-white" : "hover:bg-[#203463] hover:text-black "
-                      }`} // Apply bg-blue-100 for selected item
+                        pathname === item.url
+                          ? "bg-[#203463]  text-[20px] text-white"
+                          : "hover:bg-[#203463] hover:text-black "
+                      }`}
                     >
                       <item.icon className="w-5 h-5" />
                       <span>{item.title}</span>
@@ -236,5 +238,5 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
