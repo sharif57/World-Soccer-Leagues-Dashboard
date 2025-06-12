@@ -27,7 +27,7 @@ export default function RootLayout({
             <AppSidebar />
             <div className="flex-1  flex flex-col ">
               <DashboardHeader />
-              <main className="flex-1 p-6 bg-[#e6e6e6]">{children}</main>
+              <main className="flex-1 p-6 mt-16 bg-[#e6e6e6]">{children}</main>
             </div>
           </div>
         </SidebarProvider>

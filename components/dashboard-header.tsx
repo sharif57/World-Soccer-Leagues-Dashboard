@@ -10,7 +10,7 @@ export function DashboardHeader() {
     return null; // Don't render sidebar for login page
   }
   return (
-    <header className="border-b bg-white px-6 py-4">
+    <header className="border-b bg-white px-6 py-4 fixed w-full ">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm text-gray-600">Welcome</p>
