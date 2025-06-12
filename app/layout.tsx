@@ -1,27 +1,27 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
-import { DashboardHeader } from "@/components/dashboard-header"
+import type React from "react";
+import type { Metadata } from "next";
+import { Manrope } from "next/font/google";
+import "./globals.css";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { DashboardHeader } from "@/components/dashboard-header";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
   description: "Complete admin dashboard with routing",
-    generator: 'v0.dev'
-}
+  generator: "v0.dev",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}  cz-shortcut-listen="true">
+      <body className={inter.className} cz-shortcut-listen="true">
         <SidebarProvider defaultOpen={true}>
           <div className="flex min-h-screen w-full">
             <AppSidebar />
@@ -33,5 +33,5 @@ export default function RootLayout({
         </SidebarProvider>
       </body>
     </html>
-  )
+  );
 }
