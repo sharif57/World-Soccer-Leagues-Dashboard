@@ -72,7 +72,7 @@ const menuItems = [
 export function AppSidebar() {
   const pathname = usePathname(); // Get current URL path
 
-  if (pathname === "/auth/login") {
+  if (pathname === "/auth/login" || pathname === "/auth/forgot-password" || pathname === "/auth/verfiy_email" || pathname === "/auth/reset-password") {
     return null; // Don't render sidebar for login page
   }
 

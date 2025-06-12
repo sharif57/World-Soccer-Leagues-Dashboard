@@ -1,13 +1,12 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Bell, Settings, Search } from "lucide-react";
+
 import { usePathname } from "next/navigation";
 
 export function DashboardHeader() {
   const pathname = usePathname(); // Get current URL path
 
-  if (pathname === "/auth/login") {
+  if (pathname === "/auth/login" || pathname === "/auth/forgot-password" || pathname === "/auth/verfiy_email" || pathname === "/auth/reset-password") {
     return null; // Don't render sidebar for login page
   }
   return (
@@ -44,7 +43,7 @@ export function DashboardHeader() {
               stroke="#BFDBFE"
               strokeWidth="0.5"
             />
-            <g clip-path="url(#clip0_2418_10926)">
+            <g clipPath="url(#clip0_2418_10926)">
               <path
                 d="M34 22C27.3828 22 22 27.3828 22 34C22 40.6172 27.3828 46 34 46C40.6172 46 46 40.6163 46 34C46 27.3837 40.6172 22 34 22ZM34 44.141C28.409 44.141 23.859 39.592 23.859 34C23.859 28.408 28.409 23.859 34 23.859C39.591 23.859 44.141 28.408 44.141 34C44.141 39.592 39.592 44.141 34 44.141Z"
                 fill="black"
@@ -90,7 +89,7 @@ export function DashboardHeader() {
               height="67.5"
               rx="33.75"
               stroke="#BFDBFE"
-              stroke-width="0.5"
+              strokeWidth="0.5"
             />
             <path
               d="M37.1336 33.002C37.7155 38.3774 40 40.002 40 40.002H22C22 40.002 25 37.8686 25 30.402C25 28.7046 25.6321 27.0767 26.7574 25.8765C27.8826 24.6762 29.4087 24.002 31 24.002C31.3373 24.002 31.6717 24.0323 32 24.0914"
