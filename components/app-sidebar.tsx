@@ -52,11 +52,11 @@ const menuItems = [
     url: "/community",
     icon: MessageSquare,
   },
-  {
-    title: "Notification",
-    url: "/notifications",
-    icon: Bell,
-  },
+  // {
+  //   title: "Notification",
+  //   url: "/notifications",
+  //   icon: Bell,
+  // },
   {
     title: "Shop",
     url: "/shop",
