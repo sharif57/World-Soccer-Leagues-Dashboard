@@ -23,6 +23,12 @@ export function RecentActivity() {
       time: "1 minute ago",
       status: "Read",
     },
+    {
+      id: 4,
+      title: "Match LA Galaxy vs NY Red Bulls started",
+      time: "1 minute ago",
+      status: "Read",
+    }
   ];
 
   return (

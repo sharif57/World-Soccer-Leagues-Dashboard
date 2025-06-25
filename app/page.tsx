@@ -16,8 +16,8 @@ export default function DashboardPage() {
           <UserGrowthChart />
         </div>
         <div className="space-y-6">
-          <BestSellingProduct />
           <RecentActivity />
+          <BestSellingProduct />
         </div>
       </div>
     </div>

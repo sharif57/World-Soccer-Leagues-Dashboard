@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
 import { Trash2, Search, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface User {
@@ -14,137 +15,24 @@ interface User {
   joiningDate: string;
   lastLogIn: string;
   avatar: string;
+  organization: string;
+  status: string;
+  transaction: string;
 }
 
-// Mock user data
-const initialUsers: User[] = [
-  {
-    id: 1,
-    serial: 1,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 2,
-    serial: 2,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 3,
-    serial: 3,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 4,
-    serial: 44,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 5,
-    serial: 5,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 6,
-    serial: 6,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 7,
-    serial: 7,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 8,
-    serial: 8,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 9,
-    serial: 9,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 10,
-    serial: 10,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 11,
-    serial: 11,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 12,
-    serial: 12,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 13,
-    serial: 13,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-  {
-    id: 14,
-    serial: 14,
-    name: "Xyz",
-    email: "xyz1234@gmail.com",
-    joiningDate: "1 Jan 2025",
-    lastLogIn: "1 Jan 2025",
-    avatar: "/Logo.svg",
-  },
-];
+// Mock user data with updated fields
+const initialUsers: User[] = Array.from({ length: 14 }, (_, i) => ({
+  id: i + 1,
+  serial: i + 1,
+  name: `User ${i + 1}`,
+  email: `user${i + 1}@example.com`,
+  joiningDate: "1 Jan 2025",
+  lastLogIn: "1 Jan 2025",
+  avatar: "/Logo.svg",
+  organization: `Org ${Math.ceil((i + 1) / 2)}`,
+  status: i % 2 === 0 ? "Active" : "Inactive",
+  transaction: `TXN${1000 + i}`,
+}));
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>(initialUsers);
@@ -156,16 +44,14 @@ export default function UsersPage() {
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+      user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.organization.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Pagination calculations
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
   const startIndex = (currentPage - 1) * usersPerPage;
-  const currentUsers = filteredUsers.slice(
-    startIndex,
-    startIndex + usersPerPage
-  );
+  const currentUsers = filteredUsers.slice(startIndex, startIndex + usersPerPage);
 
   // Delete user function
   const deleteUser = (id: number) => {
@@ -192,88 +78,119 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="w-full  mx-auto p-4">
+    <div className="w-full mx-auto p-">
       <Card>
         <CardHeader className="pb-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-wrap gap-4">
             <CardTitle className="text-lg font-medium">Users List</CardTitle>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-              <Search className="h-4 w-4" />
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Input
+                type="text"
+                placeholder="Search by name, email, or organization..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-64"
+                aria-label="Search users"
+              />
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 p-0"
+                aria-label="Search"
+              >
+                <Search className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          {/* Table Header */}
-          <div className="bg-blue-50 border-b border-gray-200">
-            <div className="grid grid-cols-7 gap-4 px-6 py-3 text-sm font-medium text-gray-700">
-              <div>Image</div>
-              <div>#Serial</div>
-              <div>User Name</div>
-              <div>Email</div>
-              <div>Joining Date</div>
-              <div>Last Log In</div>
-              <div>Action</div>
-            </div>
-          </div>
-
-          {/* Table Body */}
-          <div className="divide-y divide-gray-100">
-            {currentUsers.map((user, index) => (
-              <div
-                key={user.id}
-                className={`grid grid-cols-7 gap-4 px-6 py-4 items-center text-sm ${
-                  index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                }`}
-              >
-                {/* Avatar */}
-                <div>
-                  <Avatar className="h-10 w-10">
-                    <AvatarImage
-                      src={user.avatar || "/placeholder.svg"}
-                      alt={user.name}
-                    />
-                    <AvatarFallback className="bg-orange-100 text-orange-600">
-                      {user.name.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-
-                {/* Serial */}
-                <div className="text-gray-900">#{user.serial}</div>
-
-                {/* Name */}
-                <div className="text-gray-900">{user.name}</div>
-
-                {/* Email */}
-                <div className="text-gray-600">{user.email}</div>
-
-                {/* Joining Date */}
-                <div className="text-gray-600">{user.joiningDate}</div>
-
-                {/* Last Log In */}
-                <div className="text-gray-600">{user.lastLogIn}</div>
-
-                {/* Action */}
-                <div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0 text-gray-400 hover:text-red-600"
-                    onClick={() => deleteUser(user.id)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
+          {/* Table Container with Horizontal Scroll */}
+          <div className="overflow-x-auto">
+            {/* Table Header */}
+            <div className="bg-[#DBEAFE] border-b py-6 border-gray-200">
+              <div className="grid grid-cols-10 gap-4 px-6 py-3 text-lg font-medium text-black ">
+                <div>Image</div>
+                <div>#Serial</div>
+                <div>User Name</div>
+                <div>Organization</div>
+                <div>Status</div>
+                <div>Transaction</div>
+                <div>Email</div>
+                <div>Joining Date</div>
+                <div>Last Log In</div>
+                <div>Action</div>
               </div>
-            ))}
-          </div>
-
-          {/* Empty State */}
-          {currentUsers.length === 0 && (
-            <div className="text-center py-12 text-gray-500">
-              <p>No users found</p>
             </div>
-          )}
+
+            {/* Table Body */}
+            <div className="divide-y divide-gray-100">
+              {currentUsers.map((user, index) => (
+                <div
+                  key={user.id}
+                  className={`grid grid-cols-10 gap-4 px-6 py-4 items-center text-sm min-w-[800px] ${
+                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  }`}
+                >
+                  {/* Avatar */}
+                  <div>
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage
+                        src={user.avatar}
+                        alt={user.name}
+                      />
+                      <AvatarFallback className="bg-orange-100 text-orange-600">
+                        {user.name.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                  </div>
+
+                  {/* Serial */}
+                  <div className="text-gray-900">#{user.serial}</div>
+
+                  {/* Name */}
+                  <div className="text-gray-900">{user.name}</div>
+
+                  {/* Organization */}
+                  <div className="text-gray-600">{user.organization}</div>
+
+                  {/* Status */}
+                  <div className="text-gray-600">{user.status}</div>
+
+                  {/* Transaction */}
+                  <div className="text-gray-600">{user.transaction}</div>
+
+                  {/* Email */}
+                  <div className="text-gray-600">{user.email}</div>
+
+                  {/* Joining Date */}
+                  <div className="text-gray-600">{user.joiningDate}</div>
+
+                  {/* Last Log In */}
+                  <div className="text-gray-600">{user.lastLogIn}</div>
+
+                  {/* Action */}
+                  <div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 w-8 p-0 text-gray-400 hover:text-red-600"
+                      onClick={() => deleteUser(user.id)}
+                      aria-label={`Delete user ${user.name}`}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Empty State */}
+            {currentUsers.length === 0 && (
+              <div className="text-center py-12 text-gray-500">
+                <p>No users found</p>
+              </div>
+            )}
+          </div>
 
           {/* Pagination */}
           {totalPages > 1 && (
@@ -284,6 +201,7 @@ export default function UsersPage() {
                 className="flex items-center space-x-1 px-3 py-2"
                 onClick={goToPreviousPage}
                 disabled={currentPage === 1}
+                aria-label="Previous page"
               >
                 <ChevronLeft className="h-4 w-4" />
                 <span>Back</span>
@@ -299,6 +217,7 @@ export default function UsersPage() {
                       : ""
                   }`}
                   onClick={() => goToPage(1)}
+                  aria-label="Page 1"
                 >
                   1
                 </Button>
@@ -312,6 +231,7 @@ export default function UsersPage() {
                     variant="default"
                     size="sm"
                     className="w-8 h-8 p-0 bg-gray-800 hover:bg-gray-700 text-white"
+                    aria-label={`Page ${currentPage}`}
                   >
                     {currentPage}
                   </Button>
@@ -331,6 +251,7 @@ export default function UsersPage() {
                         : ""
                     }`}
                     onClick={() => goToPage(totalPages)}
+                    aria-label={`Page ${totalPages}`}
                   >
                     {totalPages}
                   </Button>
@@ -343,6 +264,7 @@ export default function UsersPage() {
                 className="flex items-center space-x-1 px-3 py-2"
                 onClick={goToNextPage}
                 disabled={currentPage === totalPages}
+                aria-label="Next page"
               >
                 <span>Next</span>
                 <ChevronRight className="h-4 w-4" />

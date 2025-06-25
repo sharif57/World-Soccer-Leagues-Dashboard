@@ -21,9 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className} cz-shortcut-listen="true">
+      <body className={inter.className} cz-shortcut-listen="true" >
         <SidebarProvider defaultOpen={true}>
-          <div className="flex min-h-screen w-full">
+          <div className="flex min-h-screen w-full bg-[#e6e6e6]">
             <AppSidebar />
             <div className="flex-1  flex flex-col ">
               <DashboardHeader />

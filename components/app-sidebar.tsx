@@ -16,8 +16,7 @@ import {
   Trophy,
   Newspaper,
   MessageSquare,
-  Bell,
-  ShoppingBag,
+                ShoppingBag,
   Settings,
   LogOut,
 } from "lucide-react";
@@ -72,13 +71,18 @@ const menuItems = [
 export function AppSidebar() {
   const pathname = usePathname(); // Get current URL path
 
-  if (pathname === "/auth/login" || pathname === "/auth/forgot-password" || pathname === "/auth/verfiy_email" || pathname === "/auth/reset-password") {
+  if (
+    pathname === "/auth/login" ||
+    pathname === "/auth/forgot-password" ||
+    pathname === "/auth/verfiy_email" ||
+    pathname === "/auth/reset-password"
+  ) {
     return null; // Don't render sidebar for login page
   }
 
   return (
-    <Sidebar className=" pt-10">
-      <SidebarHeader className="p-4">
+    <Sidebar className=" ">
+      <SidebarHeader className="p-4 pt-10">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/Logo.svg"

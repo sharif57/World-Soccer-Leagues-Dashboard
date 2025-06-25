@@ -27,7 +27,7 @@ export default function Component() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center ">
+    <div className="min-h-screen  flex items-center justify-center ">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center pb-4">
           <CardTitle className="text-2xl font-semibold text-gray-900">
@@ -107,8 +107,6 @@ export default function Component() {
               {isLoading ? "Logging in..." : "Log in"}
             </Button>
           </form>
-
-      
         </CardContent>
       </Card>
     </div>
