@@ -107,17 +107,17 @@ export default function UsersPage() {
           {/* Table Container with Horizontal Scroll */}
           <div className="overflow-x-auto">
             {/* Table Header */}
-            <div className="bg-[#DBEAFE] border-b py-6 border-gray-200">
-              <div className="grid grid-cols-10 gap-4 px-6 py-3 text-lg font-medium text-black ">
+            <div className="bg-[#DBEAFE] border-b py-4 border-gray-200">
+              <div className="grid grid-cols-9 gap-4 px-6 py-3 text-base  font-medium text-black ">
                 <div>Image</div>
                 <div>#Serial</div>
                 <div>User Name</div>
                 <div>Organization</div>
-                <div>Status</div>
+                <div>Transaction</div>
                 <div>Transaction</div>
                 <div>Email</div>
                 <div>Joining Date</div>
-                <div>Last Log In</div>
+                {/* <div>Last Log In</div> */}
                 <div>Action</div>
               </div>
             </div>
@@ -127,7 +127,7 @@ export default function UsersPage() {
               {currentUsers.map((user, index) => (
                 <div
                   key={user.id}
-                  className={`grid grid-cols-10 gap-4 px-6 py-4 items-center text-sm min-w-[800px] ${
+                  className={`grid grid-cols-9 gap-4 px-6 py-4 items-center text-sm min-w-[800px] ${
                     index % 2 === 0 ? "bg-white" : "bg-gray-50"
                   }`}
                 >
@@ -166,7 +166,7 @@ export default function UsersPage() {
                   <div className="text-gray-600">{user.joiningDate}</div>
 
                   {/* Last Log In */}
-                  <div className="text-gray-600">{user.lastLogIn}</div>
+                  {/* <div className="text-gray-600">{user.lastLogIn}</div> */}
 
                   {/* Action */}
                   <div>

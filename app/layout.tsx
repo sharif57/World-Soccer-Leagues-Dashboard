@@ -11,7 +11,7 @@ const inter = Manrope({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Admin Dashboard",
   description: "Complete admin dashboard with routing",
-  generator: "v0.dev",
+  generator: "Next.js",
 };
 
 export default function RootLayout({
